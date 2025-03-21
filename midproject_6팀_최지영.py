@@ -38,7 +38,7 @@ print(count_3)
 
 """## 결측치 확인 - 없음"""
 
-A.info()
+df.info()
 
 """## 이상치 확인 - 이상치라고 판단할 수 있을까?
 
@@ -51,8 +51,6 @@ A.info()
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = pd.DataFrame(A)
-
 fig, axes = plt.subplots(2, 2, figsize=(9, 7))
 
 sns.boxplot(x='Class', y='raisedhands', data=df, ax=axes[0, 0])
@@ -60,7 +58,7 @@ sns.boxplot(x='Class', y='Discussion', data=df, ax=axes[0, 1])
 sns.boxplot(x='Class', y='VisITedResources', data=df, ax=axes[1, 0])
 sns.boxplot(x='Class', y='AnnouncementsView', data=df, ax=axes[1, 1])
 
-plt.tight_layout()  # 레이아웃 조정
+plt.tight_layout()
 plt.show()
 
 """## **가설** ~ **학습 참여도와 성적** ~
@@ -517,23 +515,13 @@ plt.ylabel('Class')
 plt.show()
 
 Satisfaction = pd.crosstab(df['ParentschoolSatisfaction'], df['Class'])
-
-# 각 행의 합으로 나누어 비율로 변환
 Satisfaction_ratio = Satisfaction.div(Satisfaction.sum(axis=1), axis=0)
-
-# 비율을 백분율로 변환
 Satisfaction_percentage = Satisfaction_ratio * 100
-
-# 스택형 막대 그래프 그리기
 Satisfaction_percentage.plot(kind='bar', stacked=True, color=['#99ff99', '#ff9999', '#66b3ff'])
 
-# 축 레이블 추가
 plt.xlabel('ParentschoolSatisfaction')
 plt.ylabel('Percentage(%)')
 
-plt.xticks(rotation=90)
-
-# 그래프 표시
 plt.show()
 
 """> 가설2. 학부모가 학교에 만족할수록 학생 성적이 높다. (채택) <br>
